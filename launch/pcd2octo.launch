@@ -1,0 +1,14 @@
+<launch>
+    
+    <arg name="pcd_file" default="/home/derek/database_repo/desk.pcd" />
+
+    <node pkg="pcl_ros" type="pcd_to_pointcloud" name="spawn_pcd_to_pcl" output="screen" args ="$(arg pcd_file)  0.1" >
+        <param name="frame_id" value="/map" />
+        <param name="resolution" value="0.05" />
+        <remap from="cloud_pcd" to="cloud_in" />
+    </node>
+    
+    <node pkg="octomap_server" type="octomap_tracking_server_node" name="octomap_tracking_server_node" output="screen" />
+    
+    <!-- rosrun octomap_server octomap_saver -f ~/mapfile.ot -->
+</launch>
